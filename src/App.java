@@ -70,10 +70,6 @@ public class App {
                     System.out.println("Meu saldo: " + paciente.getSaldo());
                     break;
 
-                case 4:
-
-                    break;
-
                 case 0:
 
                     break;
@@ -96,7 +92,6 @@ public class App {
             System.out.println("2. Exibir Pacientes");
             System.out.println("3. Consultar Paciente");
             System.out.println("4. Exibir Consultas");
-            System.out.println("5. Cadastrar Consulta");
             System.out.println("0. Sair");
 
             opcao = scanner.nextInt();
@@ -115,11 +110,10 @@ public class App {
                     break;
 
                 case 4:
-
+                    clinica.exibirConsultas();
                     break;
 
                 case 0:
-
                     break;
 
                 default:
