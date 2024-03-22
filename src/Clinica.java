@@ -1,6 +1,6 @@
 
 import java.sql.Date;
-import java.text.ParseException;
+
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
@@ -78,17 +78,7 @@ public class Clinica {
                 }
         }
 
-        public void agendarConsulta(Consulta consulta) throws Exception {
-                try {
-                        consulta.getPaciente().verificarSaldo(consulta.getValor());
-                        consulta.add(consulta);
-                } catch (Exception e) {
-                        System.out.println(e);
-                }
-
-        }
-
-        public void criarConsulta(Medico medico, Paciente paciente) throws ParseException {
+        public void criarConsulta(Medico medico, Paciente paciente) throws Exception {
                 Scanner scanner = new Scanner(System.in);
 
                 System.out.println("Informe a data: ");
@@ -99,13 +89,27 @@ public class Clinica {
                 Double valor = scanner.nextDouble();
                 scanner.close();
                 Consulta consulta = new Consulta(medico, paciente, utilDate, valor);
-                consulta.add(consulta);
+                try {
+                        consulta.getPaciente().verificarSaldo(consulta.getValor());
+                        consulta.add(consulta);
+                } catch (Exception e) {
+                        System.out.println(e);
+                }
         }
 
         public void exibirConsultas() {
                 System.out.println("Consultas agendadas:");
                 for (Consulta consulta : consultas) {
                         consulta.exibirInformacoes();
+                }
+        }
+        public void exibirConsultasPaciente(Paciente paciente){
+                System.out.println("Consultas agendedas do paciente: "+ paciente.getName());
+                for (Consulta consulta : consultas) {
+                        if(paciente.equals(consulta.getPaciente())){
+                                System.out.println("Data da consulta: "+consulta.getData());
+                                System.out.println("Médico responsável: "+consulta.getMedico());
+                        }
                 }
         }
 

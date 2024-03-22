@@ -63,7 +63,7 @@ public class App {
                     break;
 
                 case 2:
-
+                    clinica.exibirConsultasPaciente(paciente);
                     break;
 
                 case 3:
