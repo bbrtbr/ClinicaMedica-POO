@@ -1,27 +1,27 @@
 package Classes;
 
-import java.sql.Date;
+
 
 import Interface.Informacoes;
 
 public class Consulta implements Informacoes {
     Medico medico;
     Paciente paciente;
-    Date data;
+    
     Boolean realizada;
     Double valor;
 
-    public Consulta(Medico medico, Paciente paciente, Date utilDate, Double valor) {
+    public Consulta(Medico medico, Paciente paciente, Double valor) {
         this.medico = medico;
         this.paciente = paciente;
-        this.data = utilDate;
+       
         this.realizada = false;
         this.valor = valor;
     }
 
     @Override
     public void exibirInformacoes() {
-        System.out.println("Médico responsável: "+this.medico.getName()+"\nPaciente: "+this.paciente.getName()+"\nData: "+this.data);
+        System.out.println("Médico responsável: "+this.medico.getName()+"\nPaciente: "+this.paciente.getName()+"\nData: ");
     }
 
     public Medico getMedico() {
@@ -32,10 +32,7 @@ public class Consulta implements Informacoes {
         return paciente;
     }
 
-    public Date getData() {
-        return data;
-    }
-
+   
     public Boolean getRealizada() {
         return realizada;
     }
@@ -48,9 +45,7 @@ public class Consulta implements Informacoes {
         this.paciente = paciente;
     }
 
-    public void setData(Date data) {
-        this.data = data;
-    }
+   
 
     public void setRealizada(Boolean realizada) {
         this.realizada = realizada;
@@ -64,10 +59,7 @@ public class Consulta implements Informacoes {
         this.valor = valor;
     }
 
-    public void add(Consulta consulta) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'add'");
-    }
+    
     
     
     

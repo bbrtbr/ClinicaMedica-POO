@@ -1,7 +1,3 @@
-
-import java.sql.Date;
-
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -24,8 +20,8 @@ public class Clinica {
         }
 
         public void inicio() {
-                Paciente paciente = new Paciente("a", "a", "a", null, "a", "a", 0);
-                Medico medico = new Medico(null, null, null, null, "b", "b", 0, null);
+                Paciente paciente = new Paciente("a", "a", "a", null, "a", "a", 50000);
+                Medico medico = new Medico("b", "b", null, null, "b", "b", 0, null);
                 medicos.add(medico);
                 pacientes.add(paciente);
         }
@@ -67,34 +63,59 @@ public class Clinica {
                 String senha = scanner.nextLine();
                 System.out.println("Digite o salário do médico");
                 double salario = scanner.nextDouble();
-                System.out.println("Especializaçã do médico");
+                scanner.nextLine(); // Consumir a nova linha
+                System.out.println("Especialização do médico");
                 String especializacao = scanner.nextLine();
                 Medico medico = new Medico(name, cpf, endereco, telefone, email, senha, salario, especializacao);
                 if (!medicos.contains(medico)) {
                         medicos.add(medico);
                         System.out.println("Médico cadastrado.");
                 } else {
-                        System.out.println("Problema ao cadastrar paciente.");
+                        System.out.println("Problema ao cadastrar médico.");
                 }
         }
 
-        public void criarConsulta(Medico medico, Paciente paciente) throws Exception {
+        public void criarConsulta() {
                 Scanner scanner = new Scanner(System.in);
-
-                System.out.println("Informe a data: ");
-                SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-                Date utilDate = (Date) sdf.parse(scanner.next());
+                Medico medicoConsulta = null;
+                Paciente pacienteConsulta = null;
+                System.out.println("Informe o CPF do paciente: ");
+                String cpfPaciente = scanner.nextLine();
+                System.out.println("Informe o CPF do médico: ");
+                String cpfMedico = scanner.nextLine();
+                for (Paciente paciente : pacientes) {
+                        if (paciente.getCpf().equals(cpfPaciente)) {
+                                pacienteConsulta = paciente;
+                                break;
+                        } else {
+                                System.out.println("Paciente não encontrado");
+                                break;
+                        }
+                }
+                for (Medico medico : medicos) {
+                        if (medico.getCpf().equals(cpfMedico)) {
+                                medicoConsulta = medico;
+                                break;
+                        } else {
+                                System.out.println("Médico não encontrado");
+                                break;
+                        }
+                }
 
                 System.out.println("Informe o valor: ");
-                Double valor = scanner.nextDouble();
-                scanner.close();
-                Consulta consulta = new Consulta(medico, paciente, utilDate, valor);
-                try {
-                        consulta.getPaciente().verificarSaldo(consulta.getValor());
-                        consulta.add(consulta);
-                } catch (Exception e) {
-                        System.out.println(e);
+                Double valor = 0.0;
+
+                valor = scanner.nextDouble();
+
+                Consulta consulta = new Consulta(medicoConsulta, pacienteConsulta, valor);
+
+                if (consulta.getPaciente().verificarSaldo(consulta.getValor())) {
+                        consultas.add(consulta);
+                        System.out.println("Ok");
+                } else {
+                        System.out.println("Saldo insuficiente");
                 }
+
         }
 
         public void exibirConsultas() {
@@ -103,12 +124,13 @@ public class Clinica {
                         consulta.exibirInformacoes();
                 }
         }
-        public void exibirConsultasPaciente(Paciente paciente){
-                System.out.println("Consultas agendedas do paciente: "+ paciente.getName());
+
+        public void exibirConsultasPaciente(Paciente paciente) {
+                System.out.println("Consultas agendedas do paciente: " + paciente.getName());
                 for (Consulta consulta : consultas) {
-                        if(paciente.equals(consulta.getPaciente())){
-                                System.out.println("Data da consulta: "+consulta.getData());
-                                System.out.println("Médico responsável: "+consulta.getMedico());
+                        if (paciente.equals(consulta.getPaciente())) {
+
+                                System.out.println("Médico responsável: " + consulta.getMedico());
                         }
                 }
         }
@@ -135,19 +157,20 @@ public class Clinica {
                 System.out.println("Paciente com CPF " + cpfProcurado + " não encontrado.");
         }
 
-        public Paciente autenticarPaciente(String nome, String senha) {
-
+        public Paciente autenticarPaciente(String email, String senha) {
                 for (Paciente paciente : this.pacientes) {
-                        if (paciente.getName().equals(nome) && paciente.getSenha().equals(senha)) {
+
+                        if (paciente.getEmail().equals(email) && paciente.getSenha().equals(senha)) {
                                 return paciente;
                         }
                 }
                 return null;
         }
 
-        public Medico autenticarMedico(String nome, String senha) {
+        public Medico autenticarMedico(String email, String senha) {
                 for (Medico medico : this.medicos) {
-                        if (medico.getName().equals(nome) && medico.getSenha().equals(senha)) {
+
+                        if (medico.getEmail().equals(email) && medico.getSenha().equals(senha)) {
                                 return medico;
                         }
                 }

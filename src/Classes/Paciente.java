@@ -15,11 +15,13 @@ public class Paciente extends Pessoa {
     public void setSaldo(double saldo) {
         this.saldo = saldo;
     }
-    public void verificarSaldo (double valor) throws Exception{
+    public boolean verificarSaldo (double valor){
         if(this.saldo<valor){
-            throw new Exception("Saldo insuficiente");
+          
+            return false;
         }else{
             System.out.println("Saldo suficiente");
+            return true;
         }
 
     }

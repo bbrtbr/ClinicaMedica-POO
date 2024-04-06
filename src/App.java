@@ -21,7 +21,7 @@ public class App {
         switch (opcao) {
             case 1:
                 Paciente pacienteAutenticado = clinica.autenticarPaciente(email, senha);
-                if (pacienteAutenticado!=null) {
+                if (pacienteAutenticado != null) {
                     System.out.println("Paciente autenticado com sucesso!");
                     menuCliente(pacienteAutenticado);
                 } else {
@@ -30,10 +30,10 @@ public class App {
                 break;
             case 2:
                 Medico medicoAutenticado = clinica.autenticarMedico(email, senha);
-                if (medicoAutenticado!=null) {
+                if (medicoAutenticado != null) {
                     System.out.println("Medico autenticado com sucesso!");
                     menuFuncionario();
-                    
+
                 } else {
                     System.out.println("Email ou senha incorretos. Tente novamente.");
                 }
@@ -83,7 +83,7 @@ public class App {
         scanner.close();
     }
 
-    public static void menuFuncionario() {
+    public static void menuFuncionario() throws Exception {
         Scanner scanner = new Scanner(System.in);
         int opcao;
         do {
@@ -92,6 +92,7 @@ public class App {
             System.out.println("2. Exibir Pacientes");
             System.out.println("3. Consultar Paciente");
             System.out.println("4. Exibir Consultas");
+            System.out.println("5. Criar consulta");
             System.out.println("0. Sair");
 
             opcao = scanner.nextInt();
@@ -112,6 +113,9 @@ public class App {
                 case 4:
                     clinica.exibirConsultas();
                     break;
+                case 5:
+                    clinica.criarConsulta();
+                    break;
 
                 case 0:
                     break;
@@ -122,7 +126,7 @@ public class App {
             }
         } while (opcao != 0);
 
-        scanner.close();
+      
     }
 
 }
