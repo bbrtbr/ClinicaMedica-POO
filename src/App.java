@@ -93,6 +93,7 @@ public class App {
             System.out.println("3. Consultar Paciente");
             System.out.println("4. Exibir Consultas");
             System.out.println("5. Criar consulta");
+            System.out.println("6. Adicionar Médico");
             System.out.println("0. Sair");
 
             opcao = scanner.nextInt();
@@ -116,6 +117,9 @@ public class App {
                 case 5:
                     clinica.criarConsulta();
                     break;
+                case 6:
+                    clinica.adicionarMedico();
+                    break;
 
                 case 0:
                     break;
@@ -126,7 +130,6 @@ public class App {
             }
         } while (opcao != 0);
 
-      
     }
 
 }
