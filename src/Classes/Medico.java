@@ -1,8 +1,9 @@
 package Classes;
 
-import Interface.ProfissionalMedico;
+import java.util.Scanner;
 
-public class Medico extends Pessoa implements ProfissionalMedico {
+
+public class Medico extends Pessoa {
     double salario;
     String especializacao;
 
@@ -20,12 +21,4 @@ public class Medico extends Pessoa implements ProfissionalMedico {
         System.out.println("Especialização: " + especializacao);
     }
 
-    @Override
-    public void atenderPaciente(Consulta consulta) {
-        
-        System.out.println("Realizando atendimento médico.");
-        consulta.exibirInformacoes();
-        consulta.setRealizada(true);
-
-    }
 }

@@ -42,7 +42,7 @@ public class Clinica {
                 Paciente paciente = new Paciente(name, cpf, endereco, telefone, email, senha, 0);
                 if (paciente != null && !pacientes.contains(paciente)) {
                         pacientes.add(paciente);
-                        System.out.println("Médico cadastrado.");
+                        System.out.println("Cliente cadastrado.");
                 } else {
                         System.out.println("Problema ao cadastrar paciente.");
                 }
@@ -89,7 +89,8 @@ public class Clinica {
                                 break;
                         } else {
                                 System.out.println("Paciente não encontrado");
-                                break;
+                                return;
+
                         }
                 }
                 for (Medico medico : medicos) {
@@ -98,7 +99,8 @@ public class Clinica {
                                 break;
                         } else {
                                 System.out.println("Médico não encontrado");
-                                break;
+                                return;
+
                         }
                 }
 
@@ -106,22 +108,53 @@ public class Clinica {
                 Double valor = 0.0;
 
                 valor = scanner.nextDouble();
-
-                Consulta consulta = new Consulta(medicoConsulta, pacienteConsulta, valor);
+                int idConsulta = 0;
+                for (Consulta consulta : consultas) {
+                        idConsulta = consulta.getId();
+                }
+                idConsulta++;
+                Consulta consulta = new Consulta(idConsulta, medicoConsulta, pacienteConsulta, valor);
 
                 if (consulta.getPaciente().verificarSaldo(consulta.getValor())) {
                         consultas.add(consulta);
-                        System.out.println("Ok");
+                        System.out.println("Consulta com ID: " + consulta.getId() + " gerada.");
                 } else {
                         System.out.println("Saldo insuficiente");
                 }
 
         }
 
+        public void atenderPaciente() {
+                Scanner scanner = new Scanner(System.in);
+                System.out.println("Qual o ID da consulta?");
+                int idConsulta = scanner.nextInt();
+                Boolean encontrado = false;
+                for (Consulta consulta : consultas) {
+                        if (consulta.getId() == idConsulta) {
+
+                                if (consulta.getRealizada() == true) {
+                                        System.out.println("Consulta já foi realizada");
+
+                                } else {
+                                        System.out.println("Realizando atendimento médico.");
+                                        consulta.setRealizada(true);
+
+                                }
+                                return;
+                        }
+                }
+                if (encontrado == false) {
+                        System.out.println("Consulta não encontrada. ");
+                        return;
+                }
+        }
+
         public void exibirConsultas() {
                 System.out.println("Consultas agendadas:");
                 for (Consulta consulta : consultas) {
+                        System.out.println("----------------------------");
                         consulta.exibirInformacoes();
+                        System.out.println("----------------------------");
                 }
         }
 

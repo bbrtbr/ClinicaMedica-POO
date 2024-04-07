@@ -90,10 +90,11 @@ public class App {
             System.out.println("Selecione uma opção:");
             System.out.println("1. Cadastrar Cliente");
             System.out.println("2. Exibir Pacientes");
-            System.out.println("3. Consultar Paciente");
+            System.out.println("3. Consultar Paciente por CPF");
             System.out.println("4. Exibir Consultas");
             System.out.println("5. Criar consulta");
             System.out.println("6. Adicionar Médico");
+            System.out.println("7. Atender Paciente");
             System.out.println("0. Sair");
 
             opcao = scanner.nextInt();
@@ -119,6 +120,9 @@ public class App {
                     break;
                 case 6:
                     clinica.adicionarMedico();
+                    break;
+                case 7:
+                    clinica.atenderPaciente();
                     break;
 
                 case 0:
